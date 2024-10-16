@@ -1,9 +1,12 @@
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
+
+//这道题要用树状数组做，更简单
 
 
-//以下两个都是归并排序的方法，几乎完全一样
+// 以下两个都是归并排序的方法，几乎完全一样
 // 这个方法是没有优化的归并排序
 // 有一个代码很关键，就是拷贝别用for循环，用System.arraycopy方法！！！
 class Solution {
@@ -122,6 +125,7 @@ class Solution2 {
                 tmpIndexes[k++] = indexes[j++];
                 rightNumber++;
             } else {
+                // 这样就精确到第几个位置了
                 ret[indexes[i]] +=rightNumber;
                 tmpIndexes[k++] = indexes[i++];
             }
@@ -141,3 +145,55 @@ class Solution2 {
     }
 }
 
+//树状数组实现！！
+class Solution3 {
+    public List<Integer> countSmaller(int[] nums) {
+        // 从右往左找，先把nums变成排名,这几个api很重要，要记住
+        int[] tmp = new int[nums.length];
+        System.arraycopy(nums, 0, tmp, 0, nums.length);
+        Arrays.sort(tmp);
+        for (int i=0;i<nums.length;i++){
+            nums[i] = Arrays.binarySearch(tmp, nums[i]) + 1;
+        }
+
+        bitTree obj = new bitTree(nums.length);
+        int[] ret = new int[nums.length];
+        // 必须从右往左找
+        for(int i=nums.length-1;i>=0;i--){
+            ret[i] = obj.query(nums[i]-1);
+            obj.update(nums[i]);
+        }
+        // 数组转换成list，这个要记住
+        List<Integer> list = new ArrayList<>(nums.length);
+        for (int count : ret) {
+            list.add(count);
+        }
+        return list;
+    }
+}
+
+class bitTree{
+    int[] bitArr;
+    int size;
+
+    bitTree(int size){
+        this.size = size;
+        bitArr = new int[size+1];
+    }
+    // 查出有多少个比这个排名小的数
+    int query(int rank){
+        int sum = 0;
+        while(rank>=1){
+            sum = sum + bitArr[rank];
+            rank = rank - (rank&-rank);
+        }
+        return sum;
+    }
+
+    void update(int rank){
+        while(rank<=size){
+            bitArr[rank] = bitArr[rank]+1;
+            rank = rank + (rank&-rank);
+        }
+    }
+}
