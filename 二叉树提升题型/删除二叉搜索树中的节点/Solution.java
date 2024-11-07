@@ -37,8 +37,14 @@ class Solution {
             }
         }
         // 不相等他就不会处理，所以不用担心修改其他节点的结构
-        root.left = deleteNode(root.left,key);
-        root.right = deleteNode(root.right,key);
+        if(root.val>key){
+            root.left = deleteNode(root.left,key);
+        }else{
+            root.right = deleteNode(root.right,key);
+        }
+        // 下面这个写法也可以，上面是优化写法
+        // root.left = deleteNode(root.left,key);
+        // root.right = deleteNode(root.right,key);
         return root;
     }
 }
