@@ -40,6 +40,7 @@ class Solution1 {
     }
 }
 
+// 这个是大顶堆优先队列
 class PriorityQueue {
     int[] heap;
     int size;
@@ -77,6 +78,7 @@ class PriorityQueue {
             throw new IllegalStateException("优先队列为空");
         }
         int max = heap[0];
+        // 注意是size-1;size-1是最后一个元素，也就是最小的元素
         heap[0] = heap[size-1];
         size--;
         adjustHeap(0);

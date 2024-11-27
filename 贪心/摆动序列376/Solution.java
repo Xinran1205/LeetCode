@@ -2,7 +2,7 @@
 // 参考讲解，代码随想录：https://www.bilibili.com/video/BV17M411b7NS/?spm_id_from=333.337.search-card.all.click&vd_source=dcab574a8cf2a1191171255ffb4d513a
 
 
-// 这个代码没有考虑单调平坡，比如122224，只返回2。
+// 这个代码没有考虑单调平坡，比如122224，应该只返回2！
 class Solution {
     public int wiggleMaxLength(int[] nums) {
         // 单调坡保留峰值！！！！其他全部删去（不需要真删）
