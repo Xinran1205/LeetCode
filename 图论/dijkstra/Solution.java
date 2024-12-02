@@ -94,7 +94,7 @@ class dijkstra{
         graph.get(source).add(new Node(dest,weight));
     }
 
-    public void buildGraph(int source){
+    public int[] buildGraph(int source){
         boolean[] visited = new boolean[NumberOfNodes];
         int[] distance = new int[NumberOfNodes];
         Arrays.fill(distance,Integer.MAX_VALUE);
@@ -111,32 +111,116 @@ class dijkstra{
                 }
             }
         }
-        printPath(distance);
-    }
-
-    // 打印最短路径
-    public void printPath(int[] distance){
-        System.out.println("Vertex Distance from Source");
-        for(int i=0;i<NumberOfNodes;i++){
-            System.out.println(i+" \t\t "+distance[i]);
-        }
+        return distance;
     }
 }
 
 public class Solution {
     public static void main(String[] args) {
-        dijkstra g = new dijkstra(6);
-        g.addEdge(0, 1, 5);
-        g.addEdge(0, 2, 3);
-        g.addEdge(1, 3, 6);
-        g.addEdge(1, 2, 2);
-        g.addEdge(2, 4, 4);
-        g.addEdge(2, 5, 2);
-        g.addEdge(2, 3, 7);
-        g.buildGraph(0); // 从顶点0开始运行Dijkstra算法
-        g.buildGraph(1);
+        // 我把城市名字转换成Integer
+        Map<String,Integer> hashMap = new HashMap<>();
+
+        hashMap.put("Tromse",0);
+        hashMap.put("Bergen",1);
+        hashMap.put("Oulu",2);
+        hashMap.put("Murmansk",3);
+        hashMap.put("Edinburgh",4);
+        hashMap.put("Stockholm",5);
+        hashMap.put("Saint Petersburg",6);
+        hashMap.put("Arkhangel'sk",7);
+        hashMap.put("London",8);
+        hashMap.put("Hamburg",9);
+        hashMap.put("Budapest",10);
+        hashMap.put("kyiv",11);
+        hashMap.put("Moscow",12);
+        hashMap.put("Ulyaovsk",13);
+        hashMap.put("Mardrid",14);
+        hashMap.put("Rome",15);
+        hashMap.put("Isatnbul",16);
+        hashMap.put("Donetsk",17);
+        hashMap.put("Baku",18);
+
+        // 然后我需要使用邻接矩阵，因为是无向图
+        int[][] graph = new int[19][19];
+        // 手动初始化邻接矩阵
+        for(int i=0;i<19;i++){
+            for(int j=0;j<19;j++){
+                graph[i][j] = Integer.MAX_VALUE;
+            }
+        }
+        // 手动添加边
+        graph[0][1] = 4;
+        graph[0][2] = 2;
+        graph[0][3] = 2;
+        graph[1][2] = 4;
+        graph[1][4] = 2;
+        graph[1][5] = 2;
+        graph[1][9] = 2;
+        graph[2][3] = 4;
+        graph[2][5] = 2;
+        graph[2][6] = 1;
+        graph[2][7] = 2;
+        graph[3][7] = 2;
+        graph[4][8] = 1;
+        graph[4][9] = 2;
+        graph[5][9] = 2;
+        graph[5][10] = 3;
+        graph[5][11] = 3;
+        graph[5][6] = 2;
+        graph[6][11] = 2;
+        graph[6][12] = 1;
+        graph[6][7] = 2;
+        graph[7][12] = 3;
+        graph[7][13] = 4;
+        graph[8][14] = 2;
+        graph[8][15] = 3;
+        graph[8][9] = 1;
+        graph[9][15] = 3;
+        graph[9][10] = 2;
+        graph[10][15] = 1;
+        graph[10][11] = 1;
+        graph[10][16] = 2;
+        graph[11][16] = 2;
+        graph[11][17] = 1;
+        graph[11][12] = 1;
+        graph[12][17] = 1;
+        graph[12][13] = 1;
+        graph[13][17] = 2;
+        graph[13][18] = 6;
+        graph[14][15] = 4;
+        graph[15][16] = 2;
+        graph[16][17] = 2;
+        graph[16][18] = 3;
+        graph[17][18] = 2;
+
+        // 填充另一边
+        for(int i=0;i<19;i++){
+            for(int j=0;j<19;j++){
+                if(graph[i][j]!=Integer.MAX_VALUE){
+                    graph[j][i] = graph[i][j];
+                }
+            }
+        }
+
+        // 测试算法
+        dijkstra d = new dijkstra(19);
+        for(int i=0;i<19;i++){
+            for(int j=0;j<19;j++){
+                if(graph[i][j]!=Integer.MAX_VALUE){
+                    d.addEdge(i,j,graph[i][j]);
+                }
+            }
+        }
+        int[] distance = d.buildGraph(0);
+
+        // 打印起始城市到其他城市的最短路径
+        for(Map.Entry<String,Integer> entry:hashMap.entrySet()){
+            System.out.println(entry.getKey()+" "+distance[entry.getValue()]);
+        }
+
     }
 }
+
 
 
 

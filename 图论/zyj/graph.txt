@@ -1,0 +1,64 @@
+19
+Tromse
+Bergen
+Oulu
+Murmansk
+Edinburgh
+Stockholm
+Saint_Petersburg
+Arkhangelsk
+London
+Hamburg
+Budapest
+Kyiv
+Moscow
+Ulyanovsk
+Madrid
+Rome
+Istanbul
+Donetsk
+Baku
+42
+Tromse Bergen 4
+Tromse Oulu 2
+Tromse Murmansk 2
+Bergen Oulu 4
+Bergen Edinburgh 2
+Bergen Stockholm 2
+Bergen Hamburg 2
+Oulu Murmansk 4
+Oulu Stockholm 2
+Oulu Saint_Petersburg 1
+Oulu Arkhangelsk 2
+Murmansk Arkhangelsk 2
+Edinburgh London 1
+Edinburgh Hamburg 2
+Stockholm Hamburg 2
+Stockholm Budapest 3
+Stockholm Kyiv 3
+Stockholm Saint_Petersburg 2
+Saint_Petersburg Kyiv 2
+Saint_Petersburg Moscow 1
+Saint_Petersburg Arkhangelsk 2
+Arkhangelsk Moscow 3
+Arkhangelsk Ulyanovsk 4
+London Madrid 2
+London Rome 3
+London Hamburg 1
+Hamburg Rome 3
+Hamburg Budapest 2
+Budapest Rome 1
+Budapest Kyiv 1
+Budapest Istanbul 2
+Kyiv Istanbul 2
+Kyiv Donetsk 1
+Kyiv Moscow 1
+Moscow Donetsk 1
+Moscow Ulyanovsk 1
+Ulyanovsk Donetsk 2
+Ulyanovsk Baku 6
+Madrid Rome 4
+Rome Istanbul 2
+Istanbul Donetsk 2
+Istanbul Baku 3
+Donetsk Baku 2

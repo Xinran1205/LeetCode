@@ -1,6 +1,5 @@
 // 接雨水
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.*;
 
 class Solution {
     // 1. 按行求
@@ -96,22 +95,30 @@ class Solution {
         return sum;
     }
 
-    //方法4 单调栈，比较难
+    //方法4 单调栈，
     public int trap4(int[] height) {
+        Stack<Integer> stack = new Stack<>();
         int sum = 0;
-        Deque<Integer> stack = new ArrayDeque<Integer>();
-        for (int i=0;i<height.length;i++){
-            while(!stack.isEmpty()&&height[i]>height[stack.peek()]){
-                int low = stack.pop();
-                if (stack.isEmpty()){
+        for(int i=0;i<height.length;i++){
+            // 这里很有意思，小于或者小于等于都可以
+            while(!stack.isEmpty()&&height[stack.peek()]<height[i]){
+                // 凹槽的高度
+                int aoHeight = height[stack.peek()];
+                stack.pop();
+                // 没有左墙
+                if(stack.isEmpty()){
                     break;
                 }
-                int min = Math.min(height[stack.peek()],height[i])-height[low];
-                int distance = i -stack.peek()-1;
-                sum = sum + min*distance;
+                int rightWall = height[i];
+                int leftWall = height[stack.peek()];
+                int distance = i-stack.peek()-1;
+                int minWall = Math.min(rightWall,leftWall);
+                int val = distance*(minWall-aoHeight);
+                sum = sum+val;
             }
             stack.push(i);
         }
         return sum;
     }
+
 }
