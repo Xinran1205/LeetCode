@@ -13,13 +13,12 @@ public class Solution {
         int[] v = {15, 20, 30};
         int n = 3;
         int c = 4;
-        System.out.println(dynamic1(w,v,n,c));
+        System.out.println(dyn(w,v,n,c));
     }
-    // 一维动态数组
-    public static int dynamic1(int[] weight,int[] value,int numberOfThings,int capacity){
+    // 一维动规
+    public static int dyn(int[] weight,int[] value,int numberOfItem,int capacity){
         int[] dp = new int[capacity+1];
-        for(int i=0;i<numberOfThings;i++){
-            //倒序
+        for(int i=0;i<numberOfItem;i++){
             for(int j=capacity;j>=0;j--){
                 if(weight[i]<=j){
                     dp[j] = Math.max(dp[j],dp[j-weight[i]]+value[i]);
