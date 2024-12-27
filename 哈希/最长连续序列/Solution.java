@@ -28,6 +28,7 @@ class Solution {
         // HashSet 自动去除了所有重复的元素。因此，在后续遍历时，每个数字只会被处理一次。
         // nums数组中包含重复的元素，会浪费时间
         for(int num : set){
+            // 这个if判断很重要，防止浪费时间重复判断！
             if(!set.contains(num-1)){
                 int sum = 1;
                 int j = 1;

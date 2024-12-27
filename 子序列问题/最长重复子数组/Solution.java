@@ -1,3 +1,4 @@
+import java.util.*;
 class Solution {
     // 这个是连续的
     public int findLength(int[] nums1, int[] nums2) {
