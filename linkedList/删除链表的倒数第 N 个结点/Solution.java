@@ -28,3 +28,23 @@ class Solution {
         return ret.next;
     }
 }
+
+// 后来写的，感觉更清晰了
+class Solution2 {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode dummyNode = new ListNode();
+        dummyNode.next = head;
+        ListNode fast = head;
+        ListNode pre = dummyNode;
+        for(int i=0;i<n&&fast!=null;i++){
+            fast = fast.next;
+        }
+        while(fast!=null){
+            pre = pre.next;
+            head = head.next;
+            fast = fast.next;
+        }
+        pre.next = head.next;
+        return dummyNode.next;
+    }
+}
