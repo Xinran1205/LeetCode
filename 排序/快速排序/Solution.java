@@ -14,40 +14,37 @@ class Solution {
         quickSort(nums,0,nums.length-1);
         return nums;
     }
-
-    public void quickSort(int[] nums,int left,int right){
-        if (left>=right){
-            return;
-        }
-
-        Random random = new Random();
-        int pivotIndex = random.nextInt(right-left+1)+left;
-        int pivot = nums[pivotIndex];
-        nums[pivotIndex] = nums[left];
-        nums[left] = pivot;
-
-        int index = left;
-        int ls = left;
-        int gt = right;
-        while(index<=gt){
-            if(nums[index]<pivot){
-                int tmp = nums[index];
-                nums[index] = nums[ls];
-                nums[ls] = tmp;
-                ls++;
-                index++;
-            }else if(nums[index]==pivot){
-                index++;
-            }else{
-                int tmp = nums[index];
-                nums[index] = nums[gt];
-                nums[gt] = tmp;
-                gt--;
+    public void quickSort(int[] nums, int left, int right){
+        if(left<=right){
+            int pivotIndex = left + (int)(Math.random() * (right - left + 1));
+            int tmpe = nums[pivotIndex];
+            nums[pivotIndex] = nums[left];
+            nums[left] = tmpe;
+            int pivot = nums[left];
+            int i = left;
+            int j = right;
+            // 这里等于i或者i+1都可以
+            // 思考一下三色旗就懂了，这个pivot就是1，假设我们定义left是pivot，那其实等于第一个直接处理过了
+            // 直接从第二个即可
+            int index = i;
+            while(index<=j){
+                if(nums[index]==pivot){
+                    index++;
+                }else if(nums[index]<pivot){
+                    int tmp = nums[index];
+                    nums[index] = nums[i];
+                    nums[i] = tmp;
+                    index++;
+                    i++;
+                }else{
+                    int tmp = nums[index];
+                    nums[index] = nums[j];
+                    nums[j] = tmp;
+                    j--;
+                }
             }
+            quickSort(nums, j + 1, right);
+            quickSort(nums, left, i - 1);
         }
-
-        quickSort(nums,left,ls-1);
-        quickSort(nums,gt,right);
     }
 }
-
