@@ -22,6 +22,7 @@ class Solution {
             }
             // 这里动态更新很重要，因为可能遇到负数或者0
             // 一个前缀和可能出现多次，尤其是当数组中有负数或零时。
+            // [1, -1, 1]  1 就懂了，结果是3，到最后一个1的时候，有两个符合0但是位置不同
             hashMap.put(pre,hashMap.getOrDefault(pre,0)+1);
         }
         return sum;

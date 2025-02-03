@@ -72,25 +72,25 @@ class Solution {
 
     //方法3. 动态规划
     public int trap3(int[] height) {
-        int sum = 0;
+        int[] maxLeft = new int[height.length];
+        int[] maxRight = new int[height.length];
+        maxLeft[0] = 0;
+        maxRight[height.length-1] = 0;
         // 先计算出每个位置左边最高的墙和右边最高的墙，通过动态规划计算
-        int [] max_left = new int [height.length];
-        int [] max_right = new int [height.length];
-        for (int i = 1;i<height.length;i++){
-            max_left[i] = Math.max(max_left[i-1],height[i-1]);
+        for(int i=1;i<height.length;i++){
+            maxLeft[i] = Math.max(maxLeft[i-1],height[i-1]);
         }
-        for (int i=height.length-2;i>=0;i--){
-            max_right[i] = Math.max(max_right[i+1],height[i+1]);
+        for(int i=height.length-2;i>=0;i--){
+            maxRight[i] = Math.max(maxRight[i+1],height[i+1]);
         }
-        for (int i=1;i<height.length;i++){
-            int currentHei = height[i];
-            int min = max_left[i];
-            if (max_left[i]>max_right[i]){
-                min = max_right[i];
+        int sum = 0;
+        for(int i=1;i<height.length;i++){
+            int minHeight = Math.min(maxLeft[i],maxRight[i]);
+            int volume = 0;
+            if(minHeight>height[i]){
+                volume = minHeight-height[i];
             }
-            if (min>currentHei){
-                sum = sum + (min-currentHei);
-            }
+            sum+=volume;
         }
         return sum;
     }
