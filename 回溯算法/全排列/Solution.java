@@ -14,6 +14,7 @@ class Solution {
     public void backTracing(int[] nums){
         if(path.size()==nums.length){
             ret.add(new ArrayList<>(path));
+            return;
         }
         for(int i=0;i<nums.length;i++){
             // 这里要优化。

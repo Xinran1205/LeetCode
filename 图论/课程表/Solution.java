@@ -1,5 +1,12 @@
 import java.util.*;
 
+//        问题本质
+//        你可以将每门课程看成图中的一个 节点，先修关系看成 有向边，也就是说如果存在先修关系 [a, b]，就相当于从 b 指向 a 的一条边（意思是先学 b 后学 a）。
+//        这样问题就转换为：判断这个有向图中是否存在环。
+//
+//        如果图中存在环（例如课程 A 依赖于课程 B，而课程 B 又依赖于课程 A），那么就没有合法的学习顺序。
+//        如果图中没有环，那么就一定存在一种顺序可以完成所有课程。
+
 class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         // 1.把入度为0的元素加入队列
@@ -34,6 +41,7 @@ class Solution {
             int pre = queue.poll();
             numCourses--;
             // 把这门课的后继课程的入度-1
+            // 把这个course连着后面的课indegree--
             for(int cur : adjacency.get(pre)){
                 indegrees[cur]--;
                 if(indegrees[cur] == 0) {
