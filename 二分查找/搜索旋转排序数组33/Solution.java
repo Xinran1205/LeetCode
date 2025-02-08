@@ -34,3 +34,38 @@ class Solution {
         return -1;
     }
 }
+
+
+// 方法2，直接二分
+class Solution2 {
+    public int search(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length-1;
+        while(left<=right){
+            int mid = (right-left)/2+left;
+            if(nums[mid]==target){
+                return mid;
+            }else if(nums[mid]>=nums[left]){
+                //代表左半部分有序
+                if(target>=nums[left]&&target<nums[mid]){
+                    // target在左半部分
+                    right = mid-1;
+                }else{
+                    //在右半部分
+                    left = mid+1;
+                }
+                // 必定有一侧是有序的
+            }else{
+                // 代表右半部分有序
+                if(target<=nums[right]&&target>nums[mid]){
+                    // target在右半部分
+                    left = mid+1;
+                }else{
+                    //在左半部分
+                    right = mid;
+                }
+            }
+        }
+        return -1;
+    }
+}
