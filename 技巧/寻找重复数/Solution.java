@@ -3,21 +3,20 @@
 // 难点在抽象
 class Solution {
     public int findDuplicate(int[] nums) {
-        int slow = nums[0];
-        int fast = nums[nums[0]];
+        // 阶段 1：找相遇点
+        int slow = 0;
+        int fast = 0;
+        do {
+            slow = nums[slow];           // 慢指针走一步
+            fast = nums[nums[fast]];       // 快指针走两步
+        } while (slow != fast);
 
-        while(slow != fast){
-            slow = nums[slow];
-            fast = nums[nums[fast]];
-        }
-
-        // // 第二步：找到环的入口
-        slow = 0;
+        // 阶段 2：找环的入口
+        slow = 0;  // 重置慢指针到起点
         while (slow != fast) {
-            slow = nums[slow];
+            slow = nums[slow];  // 两指针都走一步
             fast = nums[fast];
         }
-
-        return slow;
+        return slow;  // 相遇点就是重复的数字
     }
 }

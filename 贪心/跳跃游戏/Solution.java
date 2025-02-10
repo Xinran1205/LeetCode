@@ -1,5 +1,3 @@
-
-
 class Solution {
     public boolean canJump(int[] nums) {
         // 值是“最大长度”！
@@ -17,5 +15,19 @@ class Solution {
             }
         }
         return false;
+    }
+}
+
+// 小天才
+class Solution2 {
+    public boolean canJump(int[] nums) {
+        int maxIndex = 0;
+        for(int i=0;i<nums.length;i++){
+            if(i>maxIndex){
+                return false;
+            }
+            maxIndex = Math.max(maxIndex,i+nums[i]);
+        }
+        return true;
     }
 }

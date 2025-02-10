@@ -12,6 +12,20 @@ class Solution {
         return max;
     }
 }
+// 这个是我写的更简单的
+class Solution3 {
+    public int maxProfit(int[] prices) {
+        //记录最小值，假设每一天都是卖出
+        int ret = 0;
+        int min = prices[0];
+        for(int i=1;i<prices.length;i++){
+            int val = prices[i] - min;
+            ret = Math.max(val,ret);
+            min = Math.min(min,prices[i]);
+        }
+        return ret;
+    }
+}
 
 // 动态规划！
 // 这个理解需要一定的思考

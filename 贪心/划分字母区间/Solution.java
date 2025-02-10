@@ -10,7 +10,7 @@ class Solution {
         }
         List<Integer> ret = new ArrayList<>();
         int startIndex = 0;
-        int endIndex = hash.get(0);
+        int endIndex = hash.get(s.charAt(0));
         // 判断startIndex到endIndex之间的数，他们最后出现的距离是不是小于endIndex
         // 如果都小于则这是一个区间，加入ret，更新start和end。
         // 如果有大于的，更新endIndex；
