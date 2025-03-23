@@ -23,6 +23,8 @@ class Solution2 {
 }
 
 // Boyer-Moore 投票算法  最好的方法！
+// 核心思想：由于众数的出现次数超过所有其他元素的总和，利用“投票”策略，
+// 当遇到不同元素时相互抵消，最终剩下的候选者就是众数。
 class Solution3 {
     public int majorityElement(int[] nums) {
         int count = 0;
