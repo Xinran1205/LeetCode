@@ -6,48 +6,63 @@ import java.util.ArrayList;
 
 // 建议使用树状数组，和逆序对那一题几乎完全一样，我一编过了！
 class Solution3 {
-    public List<Integer> countSmaller(int[] nums) {
-        int[] tmp = new int[nums.length];
-        System.arraycopy(nums, 0, tmp, 0, nums.length);
+    public int reversePairs(int[] record) {
+        //先拷贝一份数组
+        int[] tmp = new int[record.length];
+        System.arraycopy(record, 0, tmp, 0, record.length);
+
+        //然后对拷贝的数组排序
         Arrays.sort(tmp);
-        for(int i=0;i<nums.length;i++){
-            nums[i] = Arrays.binarySearch(tmp, nums[i]) + 1;
-        }
-        bitTree bitarr = new bitTree(nums.length);
-        int [] ret = new int[nums.length];
-        for(int i = nums.length-1;i>=0;i--){
-            ret[i] = bitarr.query(nums[i]-1);
-            bitarr.update(nums[i]);
-        }
-        List<Integer> list = new ArrayList<>(nums.length);
-        for (int count : ret) {
-            list.add(count);
-        }
-        return list;
-    }
-}
 
-class bitTree{
-    int[] bitArr;
-    int size;
-    bitTree(int n){
-        this.bitArr = new int[n+1];
-        this.size = n;
-    }
+        //重置原数组record，使得其值变成这个值的排序
+        for(int i=0;i<record.length;i++){
+            record[i] = Arrays.binarySearch(tmp, record[i]) + 1;
+        }
+        // 此时record里面的值就是排序，从1到n
 
-    public int query(int val){
+        // 因为我们只要计算大小之间关系，所以我们不需要关心具体的值，只需要关心排序关系
+
+        //初始化树状数组
+        BitTree treeArr = new BitTree(record.length);
+
+        //从右往左遍历record
+        //每次先查询再更新，查询时累加值。
         int sum = 0;
-        while(val>=1){
-            sum = sum + bitArr[val];
-            val = val-(val&-val);
+        for(int i=record.length-1;i>=0;i--){
+            // query(record[i] - 1)：问「所有已加入（也就是在右侧）的数中，
+            // 有多少 ≤ record[i]−1」，也就是严格小于 record[i] 的个数。
+            sum = sum + treeArr.query(record[i]-1);
+            treeArr.update(record[i]);
         }
+
         return sum;
     }
+    class BitTree{
+        // bitTreeArr[i] 存的并不是“原数组第 i 个元素”，而是“某一段”原始数据的累积频次。
+        int[] bitTreeArr;
+        int size;
 
-    public void update(int val){
-        while(val<=size){
-            bitArr[val] = bitArr[val] + 1;
-            val = val +(val&-val);
+        public BitTree(int n){
+            this.size = n;
+            this.bitTreeArr = new int[n+1];
+        }
+
+        // “前缀和” = “≤ rank 的个数”
+        int query(int rank){
+            int sum = 0;
+            while(rank>0){
+                sum = sum + bitTreeArr[rank];
+                rank = rank - (rank&-rank);
+            }
+            return sum;
+        }
+
+        // 每遍历到一个元素，就表示“这个 rank 又出现了一次”
+        void update(int rank){
+            while(rank<=size){
+                bitTreeArr[rank] = bitTreeArr[rank]+1;
+                rank = rank + (rank&-rank);
+            }
         }
     }
 }

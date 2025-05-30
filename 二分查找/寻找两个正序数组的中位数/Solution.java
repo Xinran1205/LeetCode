@@ -1,8 +1,8 @@
 class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
         // 如果我们要求中位数，当两个数组总长度为奇数时，
-        // 中位数就是第 (m+n+1)/2(m+n+1)/2(m+n+1)/2 小的数；当为偶数时，
-        // 通常需要找到第 (m+n)/2(m+n)/2(m+n)/2 小和第 (m+n)/2+1(m+n)/2+1(m+n)/2+1 小的两个数，然后求平均值。
+        // 中位数就是第 (m+n+1)/2 小的数；当为偶数时，
+        // 通常需要找到第 (m+n)/2 小和第 (m+n)/2+1 小的两个数，然后求平均值。
         int n = nums1.length;
         int m = nums2.length;
         // left代表靠左边的数
@@ -121,7 +121,9 @@ class Solution {
 //若 (m + n) 为偶数：
 //中位数 = (max(Aleft,Bleft) + min(Aright,Bright)) / 2。
 //
-//当然，这里要特别注意 i = 0 或 i = m 时，Aleft 或 Aright 会“越界”的情况；以及 j = 0 或 j = n 时 Bleft 或 Bright 越界的情况。通常代码里会给 Aleft 或 Bleft 在越界时赋 -∞，给 Aright 或 Bright 在越界时赋 +∞，方便比较。
+//当然，这里要特别注意 i = 0 或 i = m 时，Aleft 或 Aright 会“越界”的情况；
+// 以及 j = 0 或 j = n 时 Bleft 或 Bright 越界的情况。通常代码里会给 Aleft 或 Bleft 在越界时赋 -∞，
+// 给 Aright 或 Bright 在越界时赋 +∞，方便比较。
 
 class Solution2 {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
