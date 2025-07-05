@@ -20,8 +20,8 @@ class Solution {
         }
         tail.next = head;
         //寻找尾断点
-        //找到新的断点：从 head 出发，走 n - (k % n) - 1 步到新的尾节点 newTail。
-        //右移 k，等价于把尾部的 k 个节点「切」下来放到头部。
+        //找到新的断点：从 head 出发，走n - (k % n) - 1步到新的尾节点 newTail。
+        //右移k，等价于把尾部的 k 个节点「切」下来放到头部。
         ListNode newTail = head;
         int number = n-(k%n)-1;
         while(number!=0){
